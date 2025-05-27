@@ -276,7 +276,7 @@ function App() {
           {/* *********************************
            Dashboard
  ********************************* */}
-          <Route exact path="/" element={<DashboardHome />} />
+          <Route exact path="/admin" element={<DashboardHome />} />
 
           {/* *********************************
             Home Slider 
