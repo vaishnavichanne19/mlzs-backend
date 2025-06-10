@@ -197,6 +197,9 @@ const schoolcircularSchema = mongoose.Schema({
     title: {
         type: String
     },
+    date: {
+        type: Date
+    },
     circularimage: {
         type: String
     },

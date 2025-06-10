@@ -356,7 +356,7 @@ export const CreateEnquiry = async (req, res) => {
     };
    
     
-    // Enquiry form
+// Enquiry form
 export const CreateEnquiryform = async (req, res) => {
   try {
     const { studentname, admissionclass, dob, admissionyear, parentname, email, mobile, state, city, source } = req.body;

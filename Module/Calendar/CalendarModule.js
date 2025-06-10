@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const calendarSchema = new mongoose.Schema({
   title: {
     type: String,
-    enum: ["News", "Event", "Birthday", "Thought"],
+    enum: ["News", "Event", "Student Birthday", "Staff Birthday", "Thought"],
   },
   description: {
     type: String,
@@ -16,7 +16,7 @@ const calendarSchema = new mongoose.Schema({
   },
   color: {
     type: String,
-    default: "#007bff",
+    default: "#bd2d5d",
   },
 });
 

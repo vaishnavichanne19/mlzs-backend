@@ -1253,7 +1253,7 @@ School Circular
  *********************************/
 export const CreateSchoolCircular = async (req, res) => {
   try {
-    const { heading, title, description } = req.body;
+    const { heading, title, date, description } = req.body;
 
     // Ensure req.files exists before accessing properties
     const circularimage = req.files?.circularimage?.[0]?.filename || null;
@@ -1263,6 +1263,7 @@ export const CreateSchoolCircular = async (req, res) => {
     const newData = new SchoolCircular({
       heading,
       title,
+      date,
       description,
       circularimage,
       circularpdf,
@@ -1306,7 +1307,7 @@ export const getoneSchoolCircular = async (req, res) => {
 export const updateSchoolCircular = async (req, res) => {
   try {
     const { id } = req.params;
-    const { heading, title, description} =
+    const { heading, title, date, description} =
       req.body;
 
     let circularimage = null;
@@ -1322,6 +1323,7 @@ export const updateSchoolCircular = async (req, res) => {
     const Dataupdate = {
       heading,
       title,
+      date,
       description,
     };
 

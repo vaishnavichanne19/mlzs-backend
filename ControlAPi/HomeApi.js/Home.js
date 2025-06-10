@@ -1,4 +1,6 @@
-import { GalleryData, HomeAboutData, LiteraData, SchoolInfo, SliderData } from "../../Module/HomeData/Home.js";
+import { ApplyForJob, GalleryData, HomeAboutData, LiteraData, SchoolInfo, SliderData } from "../../Module/HomeData/Home.js";
+import nodemailer from "nodemailer"; 
+import dotenv from "dotenv";
 
 /*********************************
  Home Slider Api
@@ -566,3 +568,120 @@ export const DeleteHomeAbout = async (req, res) => {
    }
  };
  
+// Apply For Job form
+// export const CreateApplyForJobform = async (req, res) => {
+//   try {
+//     const { staffname, education, application_for_post, subject, email, mobile, experience, currently_working } = req.body;
+//     const resume = req.file ? req.file.filename : null;
+
+//     const mpdData = new ApplyForJob({
+//       staffname, education, application_for_post,
+//        subject, email, mobile, experience, currently_working, resume
+     
+//     });
+
+//     const savedData = await mpdData.save();
+//     res
+//       .status(200)
+//       .json({ data: savedData, msg: "Data Inserted Successfully" });
+//   } catch (error) {
+//     res.status(500).json({ error: error });
+//   }
+// };
+
+
+export const CreateApplyForJobform = async (req, res) => {
+  try {
+    const {
+      staffname,
+      education,
+      application_for_post,
+      subject,
+      email,
+      mobile,
+      experience,
+      currently_working,
+    } = req.body;
+
+    const resume = req.file ? req.file.filename : null;
+
+    const mpdData = new ApplyForJob({
+      staffname,
+      education,
+      application_for_post,
+      subject,
+      email,
+      mobile,
+      experience,
+      currently_working,
+      resume,
+    });
+
+    const savedData = await mpdData.save();
+
+    // ------------- SEND EMAIL -------------
+    const transporter = nodemailer.createTransport({
+      service: "gmail", 
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.Email_Password,    
+      },
+    });
+
+    const mailOptions = {
+      from: "channevaishnavi8@gmail.com",
+      to: "mlzs.ghogali@mountlitera.com",
+      subject: `New Job Application from ${staffname}`,
+      html: `
+        <h3>New Job Application Received</h3>
+        <p><strong>Name:</strong> ${staffname}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Mobile:</strong> ${mobile}</p>
+        <p><strong>Education:</strong> ${education}</p>
+        <p><strong>Post Applied For:</strong> ${application_for_post}</p>
+        <p><strong>Subject:</strong> ${subject}</p>
+        <p><strong>Experience:</strong> ${experience}</p>
+        <p><strong>Currently Working:</strong> ${currently_working}</p>
+        ${
+          resume
+            ? `<p><strong>Resume:</strong> <a href="http://localhost:8003/pdfs/${resume}" target="_blank">View Resume</a></p>`
+            : ""
+        }
+      `,
+    };
+
+    await transporter.sendMail(mailOptions);
+
+    res.status(200).json({ data: savedData, msg: "Data inserted and email sent successfully" });
+  } catch (error) {
+    console.error("Error sending form:", error);
+    res.status(500).json({ error: error.message });
+  }
+};
+
+
+export const getAllApplyForJobform = async (req, res) => {
+  try {
+    const mpdData = await ApplyForJob.find();
+    if (!mpdData) {
+      return res.status(404).json({ msg: "user data not found" });
+    }
+    res.status(200).json(mpdData);
+  } catch (error) {
+    res.status(500).json({ error: error });
+  }
+};
+
+export const DeleteApplyForJobForm = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const mpdExist = await ApplyForJob.findById(id);
+    if (!mpdExist) {
+      return res.status(404).json({ msg: "user not exist" });
+    }
+    await ApplyForJob.findByIdAndDelete(id);
+    res.status(200).json({ msg: "User deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ error: error });
+  }
+};

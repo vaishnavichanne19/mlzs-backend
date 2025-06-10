@@ -13,33 +13,38 @@ export const CreateCalendar = async(req, res) => {
     }
 }
 
+// export const CreateExcelEvent = async (req, res) => {
+//   try {
+//     if (!Array.isArray(req.body) || req.body.length === 0) {
+//       return res.status(400).json({ error: "Invalid data received" });
+//     }
+
+//     const validEvents = req.body.map(event => ({
+//       title: event.title || "Untitled Event",
+//       start: new Date(event.start),
+//       end: new Date(event.end),
+//     }));
+
+
+//     await CalendarData.insertMany(validEvents);
+//     res.json({ message: "Data saved successfully" });
+//   } catch (error) {
+//     console.error("Database Error:", error);
+//     res.status(500).json({ error: "Failed to save data" });
+//   }
+// };
+
+
 export const CreateExcelEvent = async (req, res) => {
   try {
-    console.log("Received Events:", req.body); // Debugging - check data
-
-    if (!Array.isArray(req.body) || req.body.length === 0) {
-      return res.status(400).json({ error: "Invalid data received" });
-    }
-
-    // Ensure all events have required fields
-    const validEvents = req.body.map(event => ({
-      title: event.title || "Untitled Event",
-      description: event.description || "No description",
-      start: new Date(event.start),
-      end: new Date(event.end),
-      color: event.color || "#007bff",
-    }));
-
-    console.log("Formatted Events for DB:", validEvents); // Debugging
-
+    const validEvents = req.body.events;
     await CalendarData.insertMany(validEvents);
-    res.json({ message: "Data saved successfully" });
+    res.json({ message: "Calendar events imported" });
   } catch (error) {
     console.error("Database Error:", error);
     res.status(500).json({ error: "Failed to save data" });
   }
 };
-
 
 
 export const GetAllCalendar = async(req, res) => {

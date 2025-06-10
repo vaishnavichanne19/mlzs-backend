@@ -117,9 +117,39 @@ const schoolsSchema = mongoose.Schema({
   },
 });
 
+const applyforjobSchema = mongoose.Schema({
+    staffname: {
+        type: String
+    },
+    education: {
+        type: String
+    },
+    application_for_post: {
+        type: String
+    },
+    subject: {
+        type: String
+    },
+    experience: {
+        type: Number
+    },
+    currently_working: {
+        type: String
+    },
+    email: {
+        type: String
+    },
+    mobile: {
+        type: Number
+    },
+    resume: {
+        type: String
+    }
+})
 
 export const SliderData = mongoose.model("slider", sliderSchema);
 export const HomeAboutData = mongoose.model("homeabout", homeaboutSchema);
 export const GalleryData = mongoose.model("homegallery", gallerySchema);
 export const LiteraData = mongoose.model("homelitera", literaSchema);
 export const SchoolInfo = mongoose.model("schoolinfo", schoolsSchema);
+export const ApplyForJob = mongoose.model("apply_for_job_form", applyforjobSchema)

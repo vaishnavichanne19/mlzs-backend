@@ -1,5 +1,5 @@
 import express from 'express';
-import {  CreateGallery, CreateHomeAbout, CreateLitera, CreateSchoolInfo, CreateSlider, deleteGallery, DeleteHomeAbout, deleteschoolinfo, deleteSlider, GetAllGallery, GetAllHomeAbout, GetAllLitera, getallschoolinfo, GetAllSlider, GetOneGallery, GetOneHomeAbout, GetOneLitera, getoneschoolinfo, GetOneSlider, UpdateGallery, UpdateHomeAbout, UpdateLitera, updateschoolinfo, UpdateSlider } from '../ControlAPi/HomeApi.js/Home.js';
+import {  CreateApplyForJobform, CreateGallery, CreateHomeAbout, CreateLitera, CreateSchoolInfo, CreateSlider, DeleteApplyForJobForm, deleteGallery, DeleteHomeAbout, deleteschoolinfo, deleteSlider, getAllApplyForJobform, GetAllGallery, GetAllHomeAbout, GetAllLitera, getallschoolinfo, GetAllSlider, GetOneGallery, GetOneHomeAbout, GetOneLitera, getoneschoolinfo, GetOneSlider, UpdateGallery, UpdateHomeAbout, UpdateLitera, updateschoolinfo, UpdateSlider } from '../ControlAPi/HomeApi.js/Home.js';
 import fs from "fs";
 import path from "path";
 import multer from "multer";
@@ -11,6 +11,8 @@ import { CreateCareer, Createcontact, Createcontactform, DeleteCareer, Deletecon
 import { CreateDocument, CreateGeneralTable, CreateInfrastructure, CreateResult, CreateSessionData, CreateSessionTable, CreateStaff, deleteDocument, deleteGeneralTable, deleteInfrastructure, deleteResult,  deleteSessionTable,  deleteStaff, getallDocument, getallGeneralTable, getallInfrastructure, getallResult,  getallSessionTable, getallStaff, getoneDocument, getoneGeneralTable, getoneInfrastructure, getoneResult, getoneSessionTable, getoneStaff, updateDocument, updateGeneralTable, updateInfrastructure, updateResult, updateSessionData, updateSessionTable, updateStaff } from '../ControlAPi/Mandatory/MandatoryApi.js';
 import { CreateCalendar, CreateExcelEvent, GetAllCalendar, UpdateCalendar } from '../CalendarApi/Calendar.js';
 import { CreateReview, getallReview } from '../ControlAPi/ReviewApi/Review.js';
+import { Forgot, Login, LoginStatus, LogOut, ProtectedLogin, Registration, ResetPassword } from '../ControlAPi/AuthApi/AuthenticationApi.js';
+
 
 // const uploads = multer({dest: 'images/'});
 // only video 
@@ -677,4 +679,21 @@ route.get("/getoneLearningSupport/:id", getoneLearningSupport);
 route.put("/updateLearningSupport/:id",  updateLearningSupport);
 route.delete("/deleteLearningSupport/:id",  deleteLearningSupport);
 
+ /*********************************
+Authentication Method
+ *********************************/
+route.post("/register", Registration);
+route.post("/login", Login);
+route.get("/loginstatus", LoginStatus);
+route.get("/protected-route", ProtectedLogin)
+route.get("/logout", LogOut);
+route.post("/forgot", Forgot);
+route.post("/reset-password/:token", ResetPassword)
+
+   /*********************************
+Apply For Job Method
+ *********************************/
+route.post("/createApplyForJob", uploadpdfs.single("resume"), CreateApplyForJobform);
+route.get("/getallApplyForJob", getAllApplyForJobform);
+route.delete("/deleteApplyForJob/:id", DeleteApplyForJobForm);
 export default route;
