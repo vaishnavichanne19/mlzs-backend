@@ -619,7 +619,7 @@ export const CreateApplyForJobform = async (req, res) => {
 
     const savedData = await mpdData.save();
 
-    // ------------- SEND EMAIL -------------
+  
     const transporter = nodemailer.createTransport({
       service: "gmail", 
       auth: {
