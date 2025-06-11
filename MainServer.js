@@ -10,7 +10,6 @@ import MongoStore from "connect-mongo";
 
 
 const app = express();
-app.use(express.json());
 app.use(cookieParser());
 app.use(bodyParser.json());
 
@@ -22,16 +21,24 @@ const allowedOrigins = [
 app.use(
   cors({
     origin: function (origin, callback) {
+      console.log("Origin received:", origin);
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
-        callback(new Error("Not allowed by CORS"));
+        callback(new Error("CORS not allowed for this origin: " + origin));
       }
     },
-    credentials: true
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"]
   })
 );
 
+// Handle preflight
+app.options("*", cors());
+
+
+app.use(express.json());
 dotenv.config();
 
 app.use("/images", express.static("images"));
