@@ -13,7 +13,25 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 app.use(bodyParser.json());
-app.use(cors());
+
+const allowedOrigins = [
+  "http://localhost:3000",              // ✅ Local testing
+  "https://mlzs.cyberathon.com"         // ✅ Live subdomain
+];
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true
+  })
+);
+
 dotenv.config();
 
 app.use("/images", express.static("images"));
