@@ -72,7 +72,7 @@ export const Forgot = async (req, res) => {
   user.resetTokenExpiry = Date.now() + 3600000; // 1 hour
   await user.save();
 
-  const link = "http://localhost:3000/reset-password/${token}";
+  const link = "https://mlzsvaishnavi.cyberathon.com/reset-password/${token}";
   await sendEmail(user.email, "Password Reset", `<p>Click <a href="${link}">here</a> to reset password</p>`);
   res.json({ message: "Reset link sent" });
 };

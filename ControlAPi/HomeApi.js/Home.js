@@ -644,7 +644,7 @@ export const CreateApplyForJobform = async (req, res) => {
         <p><strong>Currently Working:</strong> ${currently_working}</p>
         ${
           resume
-            ? `<p><strong>Resume:</strong> <a href="http://localhost:8003/pdfs/${resume}" target="_blank">View Resume</a></p>`
+            ? `<p><strong>Resume:</strong> <a href="https://api.gosaviadvanceddentalclinic.com/pdfs/${resume}" target="_blank">View Resume</a></p>`
             : ""
         }
       `,
