@@ -185,7 +185,7 @@ const route = express.Router();
 route.post("/createslider", uploads.single("sliderimage"), CreateSlider);
 route.get("/getallslider", GetAllSlider);
 route.get("/getoneslider/:id", GetOneSlider);
-route.put("/updateslider/:id", uploads.fields([{ name: "sliderimage" }]), UpdateSlider);
+route.put("/updateslider/:id", uploads.single("sliderimage"), UpdateSlider);
 route.delete("/deleteslider/:id", deleteSlider);
 
   /*********************************
