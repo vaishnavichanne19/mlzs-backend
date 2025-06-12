@@ -57,6 +57,30 @@ export const CreateSlider = async (req, res) => {
     try {
       const { id } = req.params;
   
+         if (!req.files || !req.files.sliderimage || req.files.sliderimage.length === 0) {
+        return res.status(400).json({
+          success: false,
+          msg: "No image file provided",
+        });
+      }
+
+      const file = req.files.sliderimage[0];
+            const allowedTypes = ["image/jpeg", "image/png", "image/jpg"];
+      if (!allowedTypes.includes(file.mimetype)) {
+        return res.status(400).json({
+          success: false,
+          msg: "Invalid file type. Only JPG, JPEG, and PNG are allowed.",
+        });
+      }
+  
+      const maxSize = 100 * 1024 * 1024; 
+      if (file.size > maxSize) {
+        return res.status(400).json({
+          success: false,
+          msg: "File size exceeds the 100MB limit.",
+        });
+      }
+
       const sliderNewData = await SliderData.findById(id);
       if (!sliderNewData) {
         return res.status(404).json({
@@ -67,7 +91,7 @@ export const CreateSlider = async (req, res) => {
   
       const updatedSlider = await SliderData.findByIdAndUpdate(
         id,
-        { sliderimage: req.file.filename },
+        { sliderimage: file.filename },
         { new: true }
       );
   

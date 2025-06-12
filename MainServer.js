@@ -14,14 +14,13 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 
 const allowedOrigins = [
-  "http://localhost:3000",              // ✅ Local testing
+  "http://localhost:3001",              // ✅ Local testing
   "https://mlzs.cyberathon.com"         // ✅ Live subdomain
 ];
 
 app.use(
   cors({
     origin: function (origin, callback) {
-      console.log("Origin received:", origin);
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
