@@ -67,7 +67,7 @@ export const CreateSlider = async (req, res) => {
   
       const updatedSlider = await SliderData.findByIdAndUpdate(
         id,
-        { sliderimage: file.filename },
+        { sliderimage: req.file.filename },
         { new: true }
       );
   
