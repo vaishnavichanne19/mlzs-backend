@@ -13,9 +13,11 @@ const app = express();
 app.use(cookieParser());
 app.use(bodyParser.json());
 
-const allowedOrigins = [
-  "http://localhost:3001",              // ✅ Local testing
-  "https://mlzs.cyberathon.com"         // ✅ Live subdomain
+const allowedOrigins = [  
+  "https://mlzsvaishnavi.cyberathon.com",          
+  "https://mlzs.cyberathon.com",
+  "http://localhost:3000",
+  "http://localhost:3001"        
 ];
 
 app.use(
