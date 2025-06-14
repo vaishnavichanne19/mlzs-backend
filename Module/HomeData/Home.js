@@ -147,9 +147,16 @@ const applyforjobSchema = mongoose.Schema({
     }
 })
 
+const bannerimageSchema = mongoose.Schema({
+    bannerimage: {
+    type: String,
+  },
+})
+
 export const SliderData = mongoose.model("slider", sliderSchema);
 export const HomeAboutData = mongoose.model("homeabout", homeaboutSchema);
 export const GalleryData = mongoose.model("homegallery", gallerySchema);
 export const LiteraData = mongoose.model("homelitera", literaSchema);
 export const SchoolInfo = mongoose.model("schoolinfo", schoolsSchema);
 export const ApplyForJob = mongoose.model("apply_for_job_form", applyforjobSchema)
+export const BannerImage = mongoose.model("bannerimages", bannerimageSchema);

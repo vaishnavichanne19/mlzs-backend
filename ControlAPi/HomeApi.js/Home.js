@@ -1,4 +1,4 @@
-import { ApplyForJob, GalleryData, HomeAboutData, LiteraData, SchoolInfo, SliderData } from "../../Module/HomeData/Home.js";
+import { ApplyForJob, BannerImage, GalleryData, HomeAboutData, LiteraData, SchoolInfo, SliderData } from "../../Module/HomeData/Home.js";
 import nodemailer from "nodemailer"; 
 import dotenv from "dotenv";
 
@@ -709,3 +709,128 @@ export const DeleteApplyForJobForm = async (req, res) => {
     res.status(500).json({ error: error });
   }
 };
+
+
+
+
+/*********************************
+ Banner Image  Api
+ *********************************/
+export const CreateBannerImage = async (req, res) => {
+  try {
+    const bannerimage = req.file.filename;
+
+    const BannerImage = new BannerImage({
+      bannerimage,
+    });
+
+    if (!BannerImage) {
+      return res.status(404).json({ msg: "Data not found" });
+    }
+
+    await BannerImage.save();
+    res.status(200).json({ msg: "Data Added Successfully", data: BannerImage });
+  } catch (error) {
+    console.error("Server Error:", error);
+    res.status(500).json({ msg: "Server error" });
+  }
+};
+  
+  export const GetAllBannerImage = async (req, res) => {
+    try{
+      const existdata = await BannerImage.find();
+  
+      if(!existdata) {
+        return res.status(404).json({msg: "Data Not Found"});
+      }
+      res.status(200).json(existdata);
+  } catch(error) {
+      res.status(500).json({msg: "server error"})
+  }
+  }
+  
+  export const GetOneBannerImage = async (req, res) => {
+    const id = req.params.id;
+    try {
+      const exitData = await BannerImage.findById(id);
+      if (!exitData) {
+        return res.status(404).json({ msg: "user data not found" });
+      }
+  
+      res.status(200).json(exitData);
+    } catch (error) {
+      res.status(500).json({ error: error });
+    }
+  };
+  
+  
+  export const UpdateBannerImage = async (req, res) => {
+    try {
+      const { id } = req.params;
+  
+         if (!req.files || !req.files.bannerimage || req.files.bannerimage.length === 0) {
+        return res.status(400).json({
+          success: false,
+          msg: "No image file provided",
+        });
+      }
+
+      const file = req.files.bannerimage[0];
+            const allowedTypes = ["image/jpeg", "image/png", "image/jpg"];
+      if (!allowedTypes.includes(file.mimetype)) {
+        return res.status(400).json({
+          success: false,
+          msg: "Invalid file type. Only JPG, JPEG, and PNG are allowed.",
+        });
+      }
+  
+      const maxSize = 100 * 1024 * 1024; 
+      if (file.size > maxSize) {
+        return res.status(400).json({
+          success: false,
+          msg: "File size exceeds the 100MB limit.",
+        });
+      }
+
+      const BannerImageNewData = await BannerImage.findById(id);
+      if (!BannerImageNewData) {
+        return res.status(404).json({
+          success: false,
+          msg: "BannerImage data not found",
+        });
+      }
+  
+      const updatedBannerImage = await BannerImage.findByIdAndUpdate(
+        id,
+        { bannerimage: file.filename },
+        { new: true }
+      );
+  
+      res.status(200).json({
+        success: true,
+        data: updatedBannerImage,
+        msg: "BannerImage image updated successfully",
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        msg: "Server error",
+        error,
+      });
+    }
+  };
+  
+   export const deleteBannerImage = async (req, res) => {
+    try {
+      const id = req.params.id;
+      const exitData = await BannerImage.findById(id);
+  
+      if (!exitData) {
+        return res.status(404).json({ msg: "User data not found" });
+      }
+      await BannerImage.findByIdAndDelete(id);
+      res.status(200).json({ msg: "user deleted data successfully" });
+    } catch (error) {
+      res.status(500).json({ error: error });
+    }
+  };

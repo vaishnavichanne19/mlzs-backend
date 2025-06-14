@@ -1,5 +1,5 @@
 import express from 'express';
-import {  CreateApplyForJobform, CreateGallery, CreateHomeAbout, CreateLitera, CreateSchoolInfo, CreateSlider, DeleteApplyForJobForm, deleteGallery, DeleteHomeAbout, deleteschoolinfo, deleteSlider, getAllApplyForJobform, GetAllGallery, GetAllHomeAbout, GetAllLitera, getallschoolinfo, GetAllSlider, GetOneGallery, GetOneHomeAbout, GetOneLitera, getoneschoolinfo, GetOneSlider, UpdateGallery, UpdateHomeAbout, UpdateLitera, updateschoolinfo, UpdateSlider } from '../ControlAPi/HomeApi.js/Home.js';
+import {  CreateApplyForJobform, CreateBannerImage, CreateGallery, CreateHomeAbout, CreateLitera, CreateSchoolInfo, CreateSlider, DeleteApplyForJobForm, deleteBannerImage, deleteGallery, DeleteHomeAbout, deleteschoolinfo, deleteSlider, getAllApplyForJobform, GetAllBannerImage, GetAllGallery, GetAllHomeAbout, GetAllLitera, getallschoolinfo, GetAllSlider, GetOneBannerImage, GetOneGallery, GetOneHomeAbout, GetOneLitera, getoneschoolinfo, GetOneSlider, UpdateBannerImage, UpdateGallery, UpdateHomeAbout, UpdateLitera, updateschoolinfo, UpdateSlider } from '../ControlAPi/HomeApi.js/Home.js';
 import fs from "fs";
 import path from "path";
 import multer from "multer";
@@ -187,6 +187,16 @@ route.get("/getallslider", GetAllSlider);
 route.get("/getoneslider/:id", GetOneSlider);
 route.put("/updateslider/:id", uploads.fields([{ name: "sliderimage" }]), UpdateSlider);
 route.delete("/deleteslider/:id", deleteSlider);
+
+
+  /*********************************
+ Banner Image Method
+ *********************************/
+route.post("/createbanner", uploads.single("bannerimage"), CreateBannerImage);
+route.get("/getallbanner", GetAllBannerImage);
+route.get("/getonebanner/:id", GetOneBannerImage);
+route.put("/updatebanner/:id", uploads.fields([{ name: "bannerimage" }]), UpdateBannerImage);
+route.delete("/deletebanner/:id", deleteBannerImage);
 
   /*********************************
  Home About Method
