@@ -720,16 +720,16 @@ export const CreateBannerImage = async (req, res) => {
   try {
     const bannerimage = req.file.filename;
 
-    const BannerImage = new BannerImage({
+    const newBannerImage = new BannerImage({
       bannerimage,
     });
 
-    if (!BannerImage) {
+    if (!newBannerImage) {
       return res.status(404).json({ msg: "Data not found" });
     }
 
-    await BannerImage.save();
-    res.status(200).json({ msg: "Data Added Successfully", data: BannerImage });
+    await newBannerImage.save();
+    res.status(200).json({ msg: "Data Added Successfully", data: newBannerImage });
   } catch (error) {
     console.error("Server Error:", error);
     res.status(500).json({ msg: "Server error" });
