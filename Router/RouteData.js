@@ -1,5 +1,5 @@
 import express from 'express';
-import {  CreateApplyForJobform, CreateBannerImage, CreateGallery, CreateHomeAbout, CreateLitera, CreateSchoolInfo, CreateSlider, DeleteApplyForJobForm, deleteBannerImage, deleteGallery, DeleteHomeAbout, deleteschoolinfo, deleteSlider, getAllApplyForJobform, GetAllBannerImage, GetAllGallery, GetAllHomeAbout, GetAllLitera, getallschoolinfo, GetAllSlider, GetOneBannerImage, GetOneGallery, GetOneHomeAbout, GetOneLitera, getoneschoolinfo, GetOneSlider, UpdateBannerImage, UpdateGallery, UpdateHomeAbout, UpdateLitera, updateschoolinfo, UpdateSlider } from '../ControlAPi/HomeApi.js/Home.js';
+import {  CreateApplyForJobform, CreateBannerImage, CreateGallery, CreateHomeAbout, CreateLitera, CreateOrientationpdf, CreateSchoolInfo, CreateSlider, DeleteApplyForJobForm, deleteBannerImage, deleteGallery, DeleteHomeAbout, deleteschoolinfo, deleteSlider, getAllApplyForJobform, GetAllBannerImage, GetAllGallery, GetAllHomeAbout, GetAllLitera, getallOrientationpdf, getallschoolinfo, GetAllSlider, GetOneBannerImage, GetOneGallery, GetOneHomeAbout, GetOneLitera, getoneOrientationpdf, getoneschoolinfo, GetOneSlider, UpdateBannerImage, UpdateGallery, UpdateHomeAbout, UpdateLitera, updateOrientationpdf, updateschoolinfo, UpdateSlider } from '../ControlAPi/HomeApi.js/Home.js';
 import fs from "fs";
 import path from "path";
 import multer from "multer";
@@ -706,4 +706,12 @@ Apply For Job Method
 route.post("/createApplyForJob", uploadpdfs.single("resume"), CreateApplyForJobform);
 route.get("/getallApplyForJob", getAllApplyForJobform);
 route.delete("/deleteApplyForJob/:id", DeleteApplyForJobForm);
+
+  /*********************************
+Orientation Pdfs Method
+ *********************************/
+ route.post("/createorientationpdf", uploadpdfs.single("orientationpdf"), CreateOrientationpdf);
+ route.get("/getallorientationpdf", getallOrientationpdf);
+ route.get("/getoneorientationpdf/:id", getoneOrientationpdf);
+ route.put("/updateorientationpdf/:id", uploadpdfs.fields([{name:"orientationpdf"}]), updateOrientationpdf);
 export default route;

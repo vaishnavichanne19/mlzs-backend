@@ -1,4 +1,4 @@
-import { ApplyForJob, BannerImage, GalleryData, HomeAboutData, LiteraData, SchoolInfo, SliderData } from "../../Module/HomeData/Home.js";
+import { ApplyForJob, BannerImage, GalleryData, HomeAboutData, LiteraData, Orientationpdf, SchoolInfo, SliderData } from "../../Module/HomeData/Home.js";
 import nodemailer from "nodemailer"; 
 import dotenv from "dotenv";
 
@@ -834,3 +834,93 @@ export const CreateBannerImage = async (req, res) => {
       res.status(500).json({ error: error });
     }
   };
+
+   /*********************************
+Orientation Pdfs
+ *********************************/
+export const CreateOrientationpdf = async (req, res) => {
+  try {
+    const { heading} = req.body;
+
+    const orientationpdf = req.file.filename;
+
+    // Create new document in database
+    const newData = new Orientationpdf({
+      heading,
+      orientationpdf,
+    });
+
+    await newData.save();
+    res.status(200).json({ msg: "Data added successfully", data: newData });
+  } catch (error) {
+    console.error("Error adding school circular:", error);
+    res.status(500).json({ error: "Failed to add data", details: error.message });
+  }
+};
+
+
+export const getallOrientationpdf = async (req, res) => {
+  try {
+    const userData = await Orientationpdf.find();
+    if (!userData) {
+      return res.status(404).json({ msg: "User data not found" });
+    }
+    res.status(200).json(userData);
+  } catch (error) {
+    res.status(500).json({ error: error });
+  }
+};
+
+export const getoneOrientationpdf = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const exitData = await Orientationpdf.findById(id);
+
+    if (!exitData) {
+      return res.status(404).json({ msg: "User data not found" });
+    }
+    res.status(200).json(exitData);
+  } catch (error) {
+    res.status(500).json({ error: error });
+  }
+};
+
+export const updateOrientationpdf = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { heading} = req.body;
+
+    let orientationpdf = null;
+    if (req.files?.orientationpdf && req.files.orientationpdf.length > 0) {
+      orientationpdf = req.files.orientationpdf[0].filename;
+    }
+
+    const Dataupdate = {
+      heading
+    };
+
+    if (orientationpdf) Dataupdate.orientationpdf = orientationpdf;
+
+    const existingData = await Orientationpdf.findById(id);
+    if (!existingData) {
+      return res
+        .status(404)
+        .json({ success: false, msg: "User data not found" });
+    }
+
+    const updatedData = await Orientationpdf.findByIdAndUpdate(id, Dataupdate, {
+      new: true,
+    });
+
+    res.status(200).json({
+      success: true,
+      data: updatedData,
+      msg: "User updated successfully",
+    });
+  } catch (error) {
+    console.error("Update error:", error);
+    res
+      .status(500)
+      .json({ success: false, msg: "Internal Server Error", error });
+  }
+};

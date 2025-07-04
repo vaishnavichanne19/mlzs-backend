@@ -153,6 +153,14 @@ const bannerimageSchema = mongoose.Schema({
   },
 })
 
+const orientationpdfSchema = mongoose.Schema ({
+    heading: {
+    type: String,
+  },
+  orientationpdf: {
+    type: String
+  }
+})
 export const SliderData = mongoose.model("slider", sliderSchema);
 export const HomeAboutData = mongoose.model("homeabout", homeaboutSchema);
 export const GalleryData = mongoose.model("homegallery", gallerySchema);
@@ -160,3 +168,4 @@ export const LiteraData = mongoose.model("homelitera", literaSchema);
 export const SchoolInfo = mongoose.model("schoolinfo", schoolsSchema);
 export const ApplyForJob = mongoose.model("apply_for_job_form", applyforjobSchema)
 export const BannerImage = mongoose.model("bannerimages", bannerimageSchema);
+export const Orientationpdf = mongoose.model("orientationpdf", orientationpdfSchema)
