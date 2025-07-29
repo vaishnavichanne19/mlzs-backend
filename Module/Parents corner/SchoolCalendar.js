@@ -90,7 +90,7 @@ const photogallerySchema = mongoose.Schema({
         type: String
     },
     photo: {
-        type: String
+        type: [String],
     },
     title: {
         type: String

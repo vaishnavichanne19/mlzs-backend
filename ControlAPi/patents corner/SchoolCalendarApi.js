@@ -437,11 +437,11 @@ export const CreatePhotoGallery = async (req, res) => {
   try {
     const { heading, title, date} =
       req.body;
-    const photo = req.file.filename;
+    const photos = req.files.map(file => file.filename);
 
     const newData = new PhotoGallery({
       heading,
-      photo,
+      photo: photos,
       title,
       date,
     });
@@ -524,6 +524,39 @@ export const updatePhotoGallery = async (req, res) => {
       .json({ success: false, msg: "Internal Server Error", error });
   }
 };
+
+// PUT /api/updatephotogallery-imageonly/:id/:imageName
+export const updateSinglePhotoInGallery = async (req, res) => {
+  try {
+    const { id, imageName } = req.params;
+
+    if (!req.files?.photo || req.files.photo.length === 0) {
+      return res.status(400).json({ success: false, msg: "No photo uploaded" });
+    }
+
+    const newPhoto = req.files.photo[0].filename;
+
+    const gallery = await PhotoGallery.findById(id);
+    if (!gallery) {
+      return res.status(404).json({ success: false, msg: "Gallery not found" });
+    }
+
+    const index = gallery.photo.indexOf(imageName);
+    if (index === -1) {
+      return res.status(404).json({ success: false, msg: "Image not found in gallery" });
+    }
+
+    // Replace the image at the found index
+    gallery.photo[index] = newPhoto;
+    await gallery.save();
+
+    res.status(200).json({ success: true, msg: "Image updated", data: gallery });
+  } catch (error) {
+    console.error("Update error:", error);
+    res.status(500).json({ success: false, msg: "Internal Server Error" });
+  }
+};
+
 
 export const deletePhotoGallery = async (req, res) => {
   try {
