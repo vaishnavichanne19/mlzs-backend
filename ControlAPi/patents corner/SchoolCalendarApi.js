@@ -587,8 +587,8 @@ export const CreateVideoGallery = async (req, res) => {
       video,
       title,
       description,
-      url
-    });
+      url,
+     });
 
     await newData.save();
     res.status(200).json({ msg: "Data added successfully", data: newData });
@@ -629,7 +629,7 @@ export const getoneVideoGallery = async (req, res) => {
 export const updateVideoGallery = async (req, res) => {
   try {
     const { id } = req.params;
-    const { title, description, url } = req.body;
+    const { title, description, url, } = req.body;
 
     let video = null;
     if (req.files?.video && req.files.video.length > 0) {
@@ -644,7 +644,8 @@ export const updateVideoGallery = async (req, res) => {
     const Dataupdate = {
       title,
       description,
-      url, 
+      url,
+       
     };
 
     if (video) Dataupdate.video = video; 

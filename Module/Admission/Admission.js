@@ -70,7 +70,7 @@ const rulesSchema = mongoose.Schema({
     heading: {
         type: String
     },
-    rulesimage: {
+    description: {
         type: String
     }
 })
@@ -105,6 +105,12 @@ const enquiryFormSchema = mongoose.Schema({
     },
     source: {
         type: String
+    },
+    aboutmlzs: {
+        type: String
+    },
+    aboutmlzsOther: {
+        type: String 
     }
 })
 export const GuidelinesData = mongoose.model("guidelines", guidelineSchema);

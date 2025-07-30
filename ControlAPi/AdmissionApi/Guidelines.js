@@ -248,11 +248,10 @@ export const CreateEnquiry = async (req, res) => {
    *********************************/
    export const CreateRules = async (req, res) => {
     try {
-      const {heading} = req.body;
-      const rulesimage = req.file.filename;
+      const {heading, description} = req.body;
   
       const Rules = new RulesData({
-        rulesimage,
+        description,
         heading
       });
   
@@ -299,7 +298,7 @@ export const CreateEnquiry = async (req, res) => {
     export const UpdateRules = async (req, res) => {
       try {
         const { id } = req.params;
-        const { heading } = req.body;
+        const { heading, description } = req.body;
     
         // Find the existing rule by ID
         const existingRule = await RulesData.findById(id);
@@ -311,29 +310,8 @@ export const CreateEnquiry = async (req, res) => {
         }
     
         // Prepare the update object
-        const updateData = { heading };
+        const updateData = { heading, description };
     
-        if (req.files && req.files.rulesimage && req.files.rulesimage.length > 0) {
-          const file = req.files.rulesimage[0];
-          const allowedTypes = ["image/jpeg", "image/png", "image/jpg"];
-    
-          if (!allowedTypes.includes(file.mimetype)) {
-            return res.status(400).json({
-              success: false,
-              msg: "Invalid file type. Only JPG, JPEG, and PNG are allowed.",
-            });
-          }
-    
-          const maxSize = 100 * 1024 * 1024; // 100MB limit
-          if (file.size > maxSize) {
-            return res.status(400).json({
-              success: false,
-              msg: "File size exceeds the 100MB limit.",
-            });
-          }
-    
-          updateData.rulesimage = file.filename;
-        }
     
         // Update the rule data
         const updatedRules = await RulesData.findByIdAndUpdate(id, updateData, {
@@ -355,15 +333,28 @@ export const CreateEnquiry = async (req, res) => {
       }
     };
    
+    export const DeleteRules = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const mpdExist = await RulesData.findById(id);
+    if (!mpdExist) {
+      return res.status(404).json({ msg: "user not exist" });
+    }
+    await RulesData.findByIdAndDelete(id);
+    res.status(200).json({ msg: "User deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ error: error });
+  }
+};
     
 // Enquiry form
 export const CreateEnquiryform = async (req, res) => {
   try {
-    const { studentname, admissionclass, dob, admissionyear, parentname, email, mobile, state, city, source } = req.body;
+    const { studentname, admissionclass, dob, admissionyear, parentname, email, mobile, state, city, source, aboutmlzs, aboutmlzsOther } = req.body;
 
     const mpdData = new EnquiryForm({
       studentname, admissionclass, dob, admissionyear,
-       parentname, email, mobile, state, city, source
+       parentname, email, mobile, state, city, source, aboutmlzs, aboutmlzsOther
      
     });
 
