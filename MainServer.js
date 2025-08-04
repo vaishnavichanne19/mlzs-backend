@@ -13,12 +13,11 @@ const app = express();
 app.use(cookieParser());
 app.use(bodyParser.json());
 
-const allowedOrigins = [  
-  "https://mlzsvaishnavi.cyberathon.com",          
+const allowedOrigins = [          
   "https://mlzs.cyberathon.com",
   "http://localhost:3000",
   "http://localhost:3001",
-  "https://mountliterabesa.edu.in "       
+  "https://mountliterabesa.edu.in"       
 ];
 
 app.use(
