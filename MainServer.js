@@ -17,7 +17,8 @@ const allowedOrigins = [
   "https://mlzs.cyberathon.com",
   "http://localhost:3000",
   "http://localhost:3001",
-  "https://mountliterabesa.edu.in"       
+  "https://mountliterabesa.edu.in",
+  "https://www.mountliterabesa.edu.in"        
 ];
 
 app.use(
