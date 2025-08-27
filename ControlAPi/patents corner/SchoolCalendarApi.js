@@ -576,29 +576,72 @@ export const deletePhotoGallery = async (req, res) => {
 /*********************************
 Video Gallary
  *********************************/
+// export const CreateVideoGallery = async (req, res) => {
+//   try {
+//     const { heading, title, description, url} =
+//       req.body;
+//       const video = req.file ? req.file.filename : null;
+
+//     const newData = new VideoGallery({
+//       heading,
+//       video,
+//       title,
+//       description,
+//       url,
+//      });
+
+//     await newData.save();
+//     res.status(200).json({ msg: "Data added successfully", data: newData });
+//   } catch (error) {
+//     console.error("Error adding school info:", error);
+//     res
+//       .status(500)
+//       .json({ error: "Failed to add data", details: error.message });
+//   }
+// };
+
+
+const extractFacebookReelID = (url) => {
+  if (!url) return null;
+  const match = url.match(/(?:\/reel\/|\/share\/r\/)([\w\d]+)/);
+  return match ? match[1] : null;
+};
+
 export const CreateVideoGallery = async (req, res) => {
   try {
-    const { heading, title, description, url} =
-      req.body;
-      const video = req.file ? req.file.filename : null;
+    const { title, description, youtubeUrl, facebookUrl } = req.body;
+    const video = req.file ? req.file.filename : null;
+
+    // At least one video source must be provided
+    if (!youtubeUrl && !facebookUrl && !video) {
+      return res.status(400).json({ msg: "Please provide a YouTube URL, Facebook URL, or upload a video." });
+    }
+
+    let reelId = null;
+    if (facebookUrl) {
+      reelId = extractFacebookReelID(facebookUrl);
+      if (!reelId) {
+        return res.status(400).json({ msg: "Invalid Facebook URL" });
+      }
+    }
 
     const newData = new VideoGallery({
-      heading,
       video,
       title,
       description,
-      url,
-     });
+      youtubeUrl: youtubeUrl || null,
+      facebookUrl: reelId || null,
+    });
 
     await newData.save();
     res.status(200).json({ msg: "Data added successfully", data: newData });
   } catch (error) {
-    console.error("Error adding school info:", error);
-    res
-      .status(500)
-      .json({ error: "Failed to add data", details: error.message });
+    console.error("Error adding video gallery:", error);
+    res.status(500).json({ error: "Failed to add data", details: error.message });
   }
 };
+
+
 
 export const getallVideoGallery = async (req, res) => {
   try {
@@ -626,42 +669,96 @@ export const getoneVideoGallery = async (req, res) => {
   }
 };
 
+// export const updateVideoGallery = async (req, res) => {
+//   try {
+//     const { id } = req.params;
+//     const { title, description, youtubeUrl, facebookUrl } = req.body;
+
+//     // Find existing record
+//     const existingData = await VideoGallery.findById(id);
+//     if (!existingData) {
+//       return res.status(404).json({ success: false, msg: "Video data not found" });
+//     }
+
+//     // Prepare update object only with provided fields
+//     const Dataupdate = {};
+
+//     if (title !== undefined) Dataupdate.title = title;
+//     if (description !== undefined) Dataupdate.description = description;
+//     if (youtubeUrl !== undefined) Dataupdate.youtubeUrl = youtubeUrl || null;
+//     if (facebookUrl !== undefined) {
+//       // If facebook url is provided → extract Reel ID
+//       const reelId = extractFacebookReelID(facebookUrl);
+//       if (!reelId) {
+//         return res.status(400).json({ msg: "Invalid Facebook URL" });
+//       }
+//       Dataupdate.facebookUrl = reelId;
+//     }
+
+//     // If a new video file is uploaded
+//     if (req.files?.video && req.files.video.length > 0) {
+//       Dataupdate.video = req.files.video[0].filename;
+//     }
+
+//     const updatedData = await VideoGallery.findByIdAndUpdate(
+//       id,
+//       { $set: Dataupdate },
+//       { new: true }
+//     );
+
+//     res.status(200).json({
+//       success: true,
+//       data: updatedData,
+//       msg: "Video updated successfully",
+//     });
+//   } catch (error) {
+//     console.error("Update error:", error);
+//     res.status(500).json({ success: false, msg: "Internal Server Error", error });
+//   }
+// };
+
+
+
+// Update video gallery
 export const updateVideoGallery = async (req, res) => {
   try {
     const { id } = req.params;
-    const { title, description, url, } = req.body;
 
-    let video = null;
-    if (req.files?.video && req.files.video.length > 0) {
-      video = req.files.video[0].filename;
-    }
+    // Extract fields from request body
+    const { title, description, youtubeUrl, facebookUrl } = req.body;
 
-    const existingData = await VideoGallery.findById(id);
-    if (!existingData) {
-      return res.status(404).json({ success: false, msg: "Video data not found" });
-    }
+    // File upload (if any)
+    const video = req.file ? req.file.filename : null;
 
-    const Dataupdate = {
+    // ✅ update payload
+    const updateData = {  
       title,
       description,
-      url,
-       
+      youtubeUrl,
+      facebookUrl, 
     };
 
-    if (video) Dataupdate.video = video; 
+    if (video) {
+      updateData.video = video;
+    }
 
-    const updatedData = await VideoGallery.findByIdAndUpdate(id, { $set: Dataupdate }, { new: true });
+    const updated = await VideoGallery.findByIdAndUpdate(
+      id,
+      { $set: updateData },
+      { new: true }
+    );
 
-    res.status(200).json({
-      success: true,
-      data: updatedData,
-      msg: "Video updated successfully",
-    });
+    if (!updated) {
+      return res.status(404).json({ message: "Video not found" });
+    }
+
+    res.json({ message: "Video updated successfully", data: updated });
   } catch (error) {
-    console.error("Update error:", error);
-    res.status(500).json({ success: false, msg: "Internal Server Error", error });
+    console.error("Error updating video gallery:", error);
+    res.status(500).json({ message: "Server error", error });
   }
 };
+
 
 export const deleteVideoGallery = async (req, res) => {
   try {

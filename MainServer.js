@@ -8,7 +8,6 @@ import cookieParser from "cookie-parser";
 import session from "express-session";
 import MongoStore from "connect-mongo";
 
-dotenv.config();
 
 const app = express();
 app.use(cookieParser());
@@ -42,7 +41,7 @@ app.options("*", cors());
 
 
 app.use(express.json());
-
+dotenv.config();
 
 app.use("/images", express.static("images"));
 app.use("/videos", express.static("videos"));
@@ -63,8 +62,7 @@ app.use(
     }),
     cookie: {
       httpOnly: true,
-     secure: true,       // ✅ required for HTTPS
-  sameSite: "none",  
+      secure: false, 
       maxAge: 1000 * 60 * 60 * 24,
     },
   })

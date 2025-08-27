@@ -100,23 +100,33 @@ const photogallerySchema = mongoose.Schema({
     },
 })
 
+// const videogallerySchema = mongoose.Schema({
+//     heading: {
+//         type: String
+//     },
+//     video: {
+//         type: String
+//     },
+//     url: {
+//         type: String
+//     },
+//     title: {
+//         type: String
+//     },
+//     description: {
+//         type: String
+//     },
+// })
+
+
 const videogallerySchema = mongoose.Schema({
-    heading: {
-        type: String
-    },
-    video: {
-        type: String
-    },
-    url: {
-        type: String
-    },
-    title: {
-        type: String
-    },
-    description: {
-        type: String
-    },
-})
+    video: { type: String }, 
+    youtubeUrl: { type: String }, 
+    facebookUrl: { type: String }, 
+    title: { type: String },
+    description: { type: String }
+});
+
 
 const achivementSchema = mongoose.Schema({
     heading: {
