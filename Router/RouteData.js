@@ -484,7 +484,7 @@ Video Gallery Method
 route.post("/createvideogallery", upload.single("video"), CreateVideoGallery);
 route.get("/getallvideogallery", getallVideoGallery);
 route.get("/getonevideogallery/:id", getoneVideoGallery);
-route.put("/updatevideogallery/:id", upload.fields([{name: "video"}]), updateVideoGallery);
+route.put("/updatevideogallery/:id", upload.single("video"), updateVideoGallery);
 route.delete("/deletevideogallery/:id",  deleteVideoGallery);
 
   /*********************************
