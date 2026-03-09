@@ -255,6 +255,12 @@ const librarySchema = mongoose.Schema({
     },
 })
 
+const SchoolLabsSchema = new mongoose.Schema({
+  heading: {type: String},
+  description: {type: String},
+  SchoolLabsimage: [String] 
+});
+
 const learningsupportSchema = mongoose.Schema({
     heading: {
         type: String
@@ -284,4 +290,5 @@ export const AnnualData = mongoose.model("annual", annualSchema);
 export const SchoolCircular = mongoose.model("schoolcircular", schoolcircularSchema);
 export const PedagogyData = mongoose.model("pedagogy", pedagogySchema);
 export const LibraryData = mongoose.model("library", librarySchema)
+export const SchoolLabsData = mongoose.model("SchoolLab", SchoolLabsSchema )
 export const LearningSupportData = mongoose.model("learningsupport", learningsupportSchema)

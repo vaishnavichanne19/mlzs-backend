@@ -13,31 +13,41 @@ const app = express();
 app.use(cookieParser());
 app.use(bodyParser.json());
 
-const allowedOrigins = [          
+app.use((req, res, next) => {
+  console.log("Request Origin:", req.headers.origin);
+  next();
+});
+
+
+const allowedOrigins = [
   "https://mlzs.cyberathon.com",
   "http://localhost:3000",
   "http://localhost:3001",
   "https://mountliterabesa.edu.in",
-  "https://www.mountliterabesa.edu.in"        
+  "https://www.mountliterabesa.edu.in",
 ];
 
+// ✅ Unified, safe CORS configuration
 app.use(
   cors({
     origin: function (origin, callback) {
+      // Allow requests with no origin (like mobile apps or curl)
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
-        callback(new Error("CORS not allowed for this origin: " + origin));
+        console.warn("Blocked by CORS:", origin);
+        callback(new Error("Not allowed by CORS"));
       }
     },
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"]
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
-// Handle preflight
+// ✅ Handle OPTIONS (preflight) requests globally
 app.options("*", cors());
+
 
 
 app.use(express.json());

@@ -1,4 +1,4 @@
-import { AchievementData, AnnualData, ArtData, CurriculamData, HobbyData, House, HouseSystem, LanguagesData, LearningSupportData, LibraryData, PedagogyData, PhotoGallery, SchoolCalendar, SchoolCircular, SportData, VideoGallery } from "../../Module/Parents corner/SchoolCalendar.js";
+import { AchievementData, AnnualData, ArtData, CurriculamData, HobbyData, House, HouseSystem, LanguagesData, LearningSupportData, LibraryData, PedagogyData, PhotoGallery, SchoolCalendar, SchoolLabsData , SchoolCircular, SportData, VideoGallery } from "../../Module/Parents corner/SchoolCalendar.js";
 
  /*********************************
 School Calendar
@@ -1697,6 +1697,124 @@ export const deleteLibrary = async (req, res) => {
       return res.status(404).json({ msg: "User data not found" });
     }
     await LibraryData.findByIdAndDelete(id);
+    res.status(200).json({ msg: "user deleted data successfully" });
+  } catch (error) {
+    res.status(500).json({ error: error });
+  }
+};
+
+/*********************************
+ School Labs Api
+ *********************************/
+export const CreateSchoolLabs = async (req, res) => {
+  try {
+    const { heading, description } = req.body;
+
+    let SchoolLabsimage = [];
+
+    if (req.files && req.files.length > 0) {
+      SchoolLabsimage = req.files.map(file => file.filename);
+    }
+
+    const newData = new SchoolLabsData({
+      heading,
+      description,
+      SchoolLabsimage
+    });
+
+    await newData.save();
+
+    res.status(200).json({
+      msg: "Data added successfully",
+      data: newData
+    });
+
+  } catch (error) {
+    console.error("Error adding school info:", error);
+    res.status(500).json({
+      error: "Failed to add data",
+      details: error.message
+    });
+  }
+};
+
+export const getallSchoolLabs = async (req, res) => {
+  try {
+    const userData = await SchoolLabsData.find();
+    if (!userData) {
+      return res.status(404).json({ msg: "User data not found" });
+    }
+    res.status(200).json(userData);
+  } catch (error) {
+    res.status(500).json({ error: error });
+  }
+};
+
+export const getoneSchoolLabs = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const exitData = await SchoolLabsData.findById(id);
+
+    if (!exitData) {
+      return res.status(404).json({ msg: "User data not found" });
+    }
+    res.status(200).json(exitData);
+  } catch (error) {
+    res.status(500).json({ error: error });
+  }
+};
+
+export const updateSchoolLabs = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { heading, description } = req.body;
+
+    let SchoolLabsimage = [];
+
+    if (req.files && req.files.length > 0) {
+      SchoolLabsimage = req.files.map(file => file.filename);
+    }
+
+    const updateData = {
+      heading,
+      description
+    };
+
+    if (SchoolLabsimage.length > 0) {
+      updateData.SchoolLabsimage = SchoolLabsimage;
+    }
+
+    const updatedData = await SchoolLabsData.findByIdAndUpdate(
+      id,
+      updateData,
+      { new: true }
+    );
+
+    res.status(200).json({
+      success: true,
+      msg: "Data updated successfully",
+      data: updatedData
+    });
+
+  } catch (error) {
+    console.error("Update error:", error);
+    res.status(500).json({
+      success: false,
+      msg: "Internal Server Error",
+      error
+    });
+  }
+};
+
+export const deleteSchoolLabs = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const exitData = await SchoolLabsData.findById(id);
+
+    if (!exitData) {
+      return res.status(404).json({ msg: "User data not found" });
+    }
+    await SchoolLabsData.findByIdAndDelete(id);
     res.status(200).json({ msg: "user deleted data successfully" });
   } catch (error) {
     res.status(500).json({ error: error });
