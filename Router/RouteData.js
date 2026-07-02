@@ -9,7 +9,7 @@ import { CreateEnquiry, CreateEnquiryform, CreateGuidelines, CreateRules, Create
 import { CreateAchievement, CreateAnnual, CreateArt, CreateCurriculam, Createhobby, CreateHouse, CreateHouseSystem, Createlanguage, CreateLearningSupport, CreateLibrary, CreatePedagogy, CreatePhotoGallery, CreateSchoolCalendar, CreateSchoolCircular, CreateSchoolLabs, CreateSportData, CreateVideoGallery, deleteAchievement, deleteAnnual, deleteArt, deleteCurriculam, deletehobby, deleteHouse, deleteHouseSystem, deletelanguage, deleteLearningSupport, deleteLibrary, deletePedagogy, deletePhotoGallery, deleteSchoolCalendar, deleteSchoolCircular, deleteSchoolLabs, deleteSportData, deleteVideoGallery, getallAchievement, getallAnnual, getallArt, getallCurriculam, getallhobby, getallHouse, getallHouseSystem, getalllanguage, getallLearningSupport, getallLibrary, getallPedagogy, getallPhotoGallery, getallSchoolCalendar, getallSchoolCircular, getallSchoolLabs, getallSportData, getallVideoGallery, getoneAchievement, getoneAnnual, getoneArt, getoneCurriculam, getonehobby, getoneHouse, getoneHouseSystem, getonelanguage, getoneLearningSupport, getoneLibrary, getonePedagogy, getonePhotoGallery, getoneSchoolCalendar, getoneSchoolCircular, getoneSchoolLabs, getoneSportData, getoneVideoGallery, updateAchievement, updateAnnual, updateArt, updateCurriculam, updatehobby, updateHouse, updateHouseSystem, updatelanguage, updateLearningSupport, updateLibrary, updatePedagogy, updatePhotoGallery, updateSchoolCalendar, updateSchoolCircular, updateSchoolLabs, updateSinglePhotoInGallery, updateSportData, updateVideoGallery } from '../ControlAPi/patents corner/SchoolCalendarApi.js';
 import { CreateCareer, Createcontact, Createcontactform, DeleteCareer, Deletecontact, DeleteContactForm, getAllCareer, getAllcontact, getAllcontactform, getOneCareer, getOnecontact, UpdateCareer, Updatecontact } from '../ControlAPi/ContactAndCareer/ContactApi.js';
 import { CreateDocument, CreateGeneralTable, CreateInfrastructure, CreateResult, CreateSessionData, CreateSessionTable, CreateStaff, deleteDocument, deleteGeneralTable, deleteInfrastructure, deleteResult,  deleteSessionTable,  deleteStaff, getallDocument, getallGeneralTable, getallInfrastructure, getallResult,  getallSessionTable, getallStaff, getoneDocument, getoneGeneralTable, getoneInfrastructure, getoneResult, getoneSessionTable, getoneStaff, updateDocument, updateGeneralTable, updateInfrastructure, updateResult, updateSessionData, updateSessionTable, updateStaff } from '../ControlAPi/Mandatory/MandatoryApi.js';
-import { CreateCalendar, CreateExcelEvent, GetAllCalendar, UpdateCalendar } from '../CalendarApi/Calendar.js';
+import { CreateCalendar, CreateExcelEvent, DeleteCalendar, GetAllCalendar, UpdateCalendar } from '../CalendarApi/Calendar.js';
 import { CreateReview, getallReview } from '../ControlAPi/ReviewApi/Review.js';
 import { Forgot, Login, LoginStatus, LogOut, ProtectedLogin, Registration, ResetPassword } from '../ControlAPi/AuthApi/AuthenticationApi.js';
 
@@ -576,6 +576,7 @@ route.post("/createcalendar", CreateCalendar);
 route.post("/createexcelevents", CreateExcelEvent);
 route.get("/getallcalendar", GetAllCalendar);
 route.put("/updatecalendar/:id", UpdateCalendar)
+route.delete("/deletecalendar/:id", DeleteCalendar)
 
    /*********************************
 Get In Touch Method

@@ -78,7 +78,12 @@ export const updateSessionTable = async (req, res) => {
       session
     };
 
-    const existingData = await SessionTable.findById(id);
+    console.log("ID:", id);
+
+const existingData = await SessionTable.findById(id);
+
+console.log("Data Found:", existingData);
+
     if (!existingData) {
       return res
         .status(404)

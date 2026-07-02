@@ -36,6 +36,9 @@ export const CreateCalendar = async(req, res) => {
 
 
 export const CreateExcelEvent = async (req, res) => {
+   console.log("CreateExcelEvent API Hit");
+  console.log(req.body);
+
   try {
     const validEvents = req.body.events;
     await CalendarData.insertMany(validEvents);
@@ -71,3 +74,24 @@ export const UpdateCalendar = async(req, res) => {
     res.status(500).json({ message: "Error updating event", error });
   }
 }
+
+export const DeleteCalendar = async (req, res) => {
+  console.log("Delete API Hit");
+
+  try {
+    const { id } = req.params;
+
+    const deleteEvent = await CalendarData.findById(id);
+
+    if (!deleteEvent) {
+      return res.status(404).json({ msg: "Data Not Found" });
+    }
+
+    await CalendarData.findByIdAndDelete(id);
+
+    res.status(200).json({ msg: "Data Deleted Successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ msg: "Server error" });
+  }
+};
