@@ -95,3 +95,17 @@ export const DeleteCalendar = async (req, res) => {
     res.status(500).json({ msg: "Server error" });
   }
 };
+
+export const DeleteAllCalendar = async (req, res) => {
+  try {
+    const result = await CalendarData.deleteMany({});
+
+    res.status(200).json({
+      msg: "All calendar events deleted successfully",
+      deletedCount: result.deletedCount,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ msg: "Server error" });
+  }
+};
