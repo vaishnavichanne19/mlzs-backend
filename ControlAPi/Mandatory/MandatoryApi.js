@@ -162,6 +162,43 @@ export const deleteSessionTable = async (req, res) => {
 };
 
 
+export const deleteEntireSession = async (req, res) => {
+  const { id } = req.body;
+
+  try {
+    if (!id) {
+      return res.status(400).json({
+        status: false,
+        message: "Session ID is required",
+      });
+    }
+
+    const deletedSession = await SessionTable.findByIdAndDelete(id);
+
+    if (!deletedSession) {
+      return res.status(404).json({
+        status: false,
+        message: "Session not found",
+      });
+    }
+
+    return res.status(200).json({
+      status: true,
+      message: "Session deleted successfully",
+      data: deletedSession,
+    });
+  } catch (error) {
+    console.error("Delete Error:", error);
+
+    return res.status(500).json({
+      status: false,
+      message: "Internal server error",
+    });
+  }
+};
+
+
+
 
 /*********************************
 General Table

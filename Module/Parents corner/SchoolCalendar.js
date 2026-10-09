@@ -253,6 +253,10 @@ const librarySchema = mongoose.Schema({
     description2: {
         type: String
     },
+    photos: {
+    type: [String],
+    default: []
+  }
 })
 
 const SchoolLabsSchema = new mongoose.Schema({

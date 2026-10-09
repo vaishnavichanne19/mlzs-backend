@@ -1600,28 +1600,73 @@ export const deletePedagogy = async (req, res) => {
  /*********************************
 Library
  *********************************/
+// export const CreateLibrary = async (req, res) => {
+//   try {
+//     const { heading, paragraph, title, description, title2, description2} =
+//       req.body;
+
+//     const newData = new LibraryData({
+//       heading,
+//        paragraph,
+//       title,
+//       description,
+//       title2, description2
+//     });
+
+//     await newData.save();
+//     res.status(200).json({ msg: "Data added successfully", data: newData });
+//   } catch (error) {
+//     console.error("Error adding school info:", error);
+//     res
+//       .status(500)
+//       .json({ error: "Failed to add data", details: error.message });
+//   }
+// };
+
+
+/*********************************
+Library
+*********************************/
 export const CreateLibrary = async (req, res) => {
   try {
-    const { heading, paragraph, title, description, title2, description2} =
-      req.body;
+    const {
+      heading,
+      paragraph,
+      title,
+      description,
+      title2,
+      description2,
+      photos
+    } = req.body;
 
     const newData = new LibraryData({
       heading,
-       paragraph,
+      paragraph,
       title,
       description,
-      title2, description2
+      title2,
+      description2,
+      photos
     });
 
     await newData.save();
-    res.status(200).json({ msg: "Data added successfully", data: newData });
+
+    res.status(200).json({
+      msg: "Data added successfully",
+      data: newData
+    });
   } catch (error) {
     console.error("Error adding school info:", error);
+
     res
       .status(500)
-      .json({ error: "Failed to add data", details: error.message });
+      .json({
+        error: "Failed to add data",
+        details: error.message
+      });
   }
 };
+
 
 export const getallLibrary = async (req, res) => {
   try {
@@ -1649,45 +1694,103 @@ export const getoneLibrary = async (req, res) => {
   }
 };
 
+// export const updateLibrary = async (req, res) => {
+//   try {
+//     const { id } = req.params;
+//     const { heading, paragraph, title, description, title2, description2} =
+//       req.body;
+
+//     const Dataupdate = {
+//       heading,
+//        paragraph,
+//       title,
+//       description,
+//       title2, description2
+//     };
+
+   
+//     const existingData = await LibraryData.findById(id);
+//     if (!existingData) {
+//       return res
+//         .status(404)
+//         .json({ success: false, msg: "User data not found" });
+//     }
+
+//     const updatedData = await LibraryData.findByIdAndUpdate(id, Dataupdate, {
+//       new: true,
+//     });
+
+//     res.status(200).json({
+//       success: true,
+//       data: updatedData,
+//       msg: "User updated successfully",
+//     });
+//   } catch (error) {
+//     console.error("Update error:", error);
+//     res
+//       .status(500)
+//       .json({ success: false, msg: "Internal Server Error", error });
+//   }
+// };
+
+
 export const updateLibrary = async (req, res) => {
   try {
     const { id } = req.params;
-    const { heading, paragraph, title, description, title2, description2} =
-      req.body;
+
+    const {
+      heading,
+      paragraph,
+      title,
+      description,
+      title2,
+      description2,
+      photos
+    } = req.body;
 
     const Dataupdate = {
       heading,
-       paragraph,
+      paragraph,
       title,
       description,
-      title2, description2
+      title2,
+      description2,
+      photos
     };
 
-   
     const existingData = await LibraryData.findById(id);
+
     if (!existingData) {
       return res
         .status(404)
         .json({ success: false, msg: "User data not found" });
     }
 
-    const updatedData = await LibraryData.findByIdAndUpdate(id, Dataupdate, {
-      new: true,
-    });
+    const updatedData = await LibraryData.findByIdAndUpdate(
+      id,
+      Dataupdate,
+      {
+        new: true
+      }
+    );
 
     res.status(200).json({
       success: true,
       data: updatedData,
-      msg: "User updated successfully",
+      msg: "User updated successfully"
     });
   } catch (error) {
     console.error("Update error:", error);
+
     res
       .status(500)
-      .json({ success: false, msg: "Internal Server Error", error });
+      .json({
+        success: false,
+        msg: "Internal Server Error",
+        error
+      });
   }
 };
-
 export const deleteLibrary = async (req, res) => {
   try {
     const id = req.params.id;
