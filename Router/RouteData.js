@@ -681,14 +681,26 @@ route.get("/getonePedagogy/:id", getonePedagogy);
 route.put("/updatePedagogy/:id",  updatePedagogy);
 route.delete("/deletePedagogy/:id",  deletePedagogy);
 
- /*********************************
+/*********************************
 Library Method
- *********************************/
-route.post("/createLibrary",  CreateLibrary);
+*********************************/
+
+route.post(
+  "/createLibrary",
+  uploads.array("photos", 10),
+  CreateLibrary
+);
+
 route.get("/getallLibrary", getallLibrary);
 route.get("/getoneLibrary/:id", getoneLibrary);
-route.put("/updateLibrary/:id",  updateLibrary);
-route.delete("/deleteLibrary/:id",  deleteLibrary);
+
+route.put(
+  "/updateLibrary/:id",
+  uploads.array("photos", 10),
+  updateLibrary
+);
+
+route.delete("/deleteLibrary/:id", deleteLibrary);
 
 /*********************************
 School Labs Method
