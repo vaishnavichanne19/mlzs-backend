@@ -1629,6 +1629,10 @@ Library
 *********************************/
 export const CreateLibrary = async (req, res) => {
   try {
+    console.log("Content-Type:", req.headers["content-type"]);
+    console.log("Request body:", req.body);
+    console.log("Uploaded files:", req.files);
+
     const {
       heading,
       paragraph,
@@ -1636,34 +1640,27 @@ export const CreateLibrary = async (req, res) => {
       description,
       title2,
       description2,
-      photos
     } = req.body;
 
-    const newData = new LibraryData({
+    const photos = req.files?.map((file) => file.filename) || [];
+
+    const newData = await LibraryData.create({
       heading,
       paragraph,
       title,
       description,
       title2,
       description2,
-      photos
+      photos,
     });
 
-    await newData.save();
-
-    res.status(200).json({
-      msg: "Data added successfully",
-      data: newData
+    return res.status(201).json({
+      success: true,
+      data: newData,
     });
   } catch (error) {
-    console.error("Error adding school info:", error);
-
-    res
-      .status(500)
-      .json({
-        error: "Failed to add data",
-        details: error.message
-      });
+    console.error("CreateLibrary error:", error);
+    return res.status(500).json({ error: error.message });
   }
 };
 
@@ -1738,6 +1735,15 @@ export const updateLibrary = async (req, res) => {
   try {
     const { id } = req.params;
 
+    const existingData = await LibraryData.findById(id);
+
+    if (!existingData) {
+      return res.status(404).json({
+        success: false,
+        msg: "Library data not found",
+      });
+    }
+
     const {
       heading,
       paragraph,
@@ -1745,52 +1751,48 @@ export const updateLibrary = async (req, res) => {
       description,
       title2,
       description2,
-      photos
     } = req.body;
 
-    const Dataupdate = {
-      heading,
-      paragraph,
-      title,
-      description,
-      title2,
-      description2,
-      photos
-    };
+    const updateData = {};
 
-    const existingData = await LibraryData.findById(id);
-
-    if (!existingData) {
-      return res
-        .status(404)
-        .json({ success: false, msg: "User data not found" });
+    if (heading !== undefined) updateData.heading = heading;
+    if (paragraph !== undefined) updateData.paragraph = paragraph;
+    if (title !== undefined) updateData.title = title;
+    if (description !== undefined) updateData.description = description;
+    if (title2 !== undefined) updateData.title2 = title2;
+    if (description2 !== undefined) {
+      updateData.description2 = description2;
     }
+
+    // Handle uploaded images.
+    // Use this if your route uses upload.array("photos").
+    if (req.files && req.files.length > 0) {
+  updateData.photos = req.files.map((file) => file.filename);
+}
 
     const updatedData = await LibraryData.findByIdAndUpdate(
       id,
-      Dataupdate,
-      {
-        new: true
-      }
+      { $set: updateData },
+      { new: true, runValidators: true }
     );
 
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       data: updatedData,
-      msg: "User updated successfully"
+      msg: "Library updated successfully",
     });
   } catch (error) {
-    console.error("Update error:", error);
+    console.error("Update library error:", error);
 
-    res
-      .status(500)
-      .json({
-        success: false,
-        msg: "Internal Server Error",
-        error
-      });
+    return res.status(500).json({
+      success: false,
+      msg: "Internal Server Error",
+      error: error.message,
+    });
   }
 };
+
+
 export const deleteLibrary = async (req, res) => {
   try {
     const id = req.params.id;
