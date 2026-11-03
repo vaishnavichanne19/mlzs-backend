@@ -30,6 +30,7 @@ const allowedOrigins = [
   "http://localhost:3001",
   "https://mountliterabesa.edu.in",
   "https://www.mountliterabesa.edu.in",
+  "https://www.apimlzs.koderztech.cloud",
 ];
 
 // ✅ Unified, safe CORS configuration
