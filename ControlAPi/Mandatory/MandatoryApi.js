@@ -2,6 +2,7 @@ import {
   DocumentData,
   GeneralData,
   InfrastructureData,
+  resultcompdata,
   ResultData,
   SessionTable,
   StaffData,
@@ -714,3 +715,125 @@ export const deleteInfrastructure = async (req, res) => {
     res.status(500).json({ error: error });
   }
 };
+
+export const createResultComp = async(req, res) => {
+  const { year, mlzs, global } = req.body;
+  try {
+    const saveData = await resultcompdata.create({
+      year, mlzs, global
+    })
+
+    res.status(200).json({
+      status: true,
+      message: "Result created successfully",
+      data: saveData
+    })
+  } catch (error) {
+    res.status(500).json({
+      error:error.message
+    })
+  }
+}
+
+
+export const getAllResultComp = async(req, res) => {
+  try {
+    const findAllData = await resultcompdata.find();
+
+    res.status(200).json({
+      status: true,
+      message:"Data Fetched Successfully",
+      data: findAllData
+    })
+  } catch (error) {
+    res.status(500).json({
+      error:error.mesage
+    })
+  }
+}
+
+export const getSingleResultComp = async (req, res) => {
+  try {
+    const { id } = req.query;
+
+    if (!id) {
+      return res.status(400).json({
+        status: false,
+        message: "ID is required",
+      });
+    }
+
+    const findSingleData = await resultcompdata.findById(id);
+
+    if (!findSingleData) {
+      return res.status(404).json({
+        status: false,
+        message: "Result data not found",
+        data: null,
+      });
+    }
+
+    return res.status(200).json({
+      status: true,
+      message: "Data Retrieved Successfully",
+      data: findSingleData,
+    });
+
+  } catch (error) {
+    console.error("Error fetching result:", error);
+
+    return res.status(500).json({
+      status: false,
+      message: "Failed to retrieve result data",
+      error: error.message,
+    });
+  }
+};
+
+export const updateResultComp = async(req, res) => {
+  const { id, year, mlzs, global } = req.body;
+  try {
+
+    if(!id){
+      return res.status(400).json({
+        message:"id is required"
+      })
+    }
+    const updateResultCompData = await resultcompdata.findByIdAndUpdate( id, { year, mlzs, global }, {new:true});
+
+    res.status(200).json({
+      status: true,
+      message: "Data Updated Successfully",
+      data: updateResultCompData
+    })
+
+  } catch (error) {
+    res.status(500).json({
+      error:error.message
+    })
+  }
+}
+
+export const deleteResultComp = async(req, res) => {
+  const { id } = req.body;
+
+  try {
+
+    if(!id){
+      return res.status(400).json({
+        message:"id is required"
+      })
+    }
+    const deleteresultcompdata = await resultcompdata.findByIdAndDelete(id);
+
+    res.status(200).json({
+      status:true,
+      message:"Data deleted successfully",
+      data:deleteresultcompdata
+    })    
+  } catch (error) {
+   res.status(500).json({
+    error:error.message
+   }) 
+  }
+}

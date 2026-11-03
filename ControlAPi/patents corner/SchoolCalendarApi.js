@@ -1,4 +1,4 @@
-import { AchievementData, AnnualData, ArtData, CurriculamData, HobbyData, House, HouseSystem, LanguagesData, LearningSupportData, LibraryData, PedagogyData, PhotoGallery, SchoolCalendar, SchoolLabsData , SchoolCircular, SportData, VideoGallery } from "../../Module/Parents corner/SchoolCalendar.js";
+import { AchievementData, AnnualData, ArtData, CurriculamData, HobbyData, House, HouseSystem, LanguagesData, LearningSupportData, LibraryData, PedagogyData, PhotoGallery, SchoolCalendar, SchoolLabsData , SchoolCircular, SportData, VideoGallery, newlearningData } from "../../Module/Parents corner/SchoolCalendar.js";
 
  /*********************************
 School Calendar
@@ -2031,3 +2031,113 @@ export const deleteLearningSupport = async (req, res) => {
     res.status(500).json({ error: error });
   }
 };
+
+export const createNewLearning = async(req, res) => {
+  const { paragraph } = req.body;
+  try {
+     const image = req.file ? req.file.filename : "";
+
+    const createnewlearningData = await newlearningData.create({
+      image,
+      paragraph
+    })
+
+    res.status(200).json({
+      status:true,
+      messaage:"Learning created successfully",
+      data: createnewlearningData
+    })
+  } catch (error) {
+    res.status(500).json({
+      error:error.message
+    })
+  }
+}
+
+export const getAllNewLearning = async(req, res) => {
+  try {
+    const getnewlearningdata = await newlearningData.find();
+
+    res.status(200).json({
+      status:true,
+      message:"Learning Fetched Successfully",
+      data:getnewlearningdata
+    })
+  } catch (error) {
+     res.status(500).json({
+      error:error.message
+    })
+  }
+}
+
+
+export const getOneNewLearning = async (req, res) => {
+  const id = req.query.id || req.body?.id;
+
+  try {
+    if (!id) {
+      return res.status(400).json({
+        status: false,
+        message: "ID is required",
+      });
+    }
+
+    const getonedatalearn = await newlearningData.findById(id);
+
+    if (!getonedatalearn) {
+      return res.status(404).json({
+        status: false,
+        message: "Learning data not found",
+      });
+    }
+
+    res.status(200).json({
+      status: true,
+      message: "Data Retrieved Successfully",
+      data: getonedatalearn,
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: false,
+      message: "Error retrieving learning data",
+      error: error.message,
+    });
+  }
+};
+
+
+export const updateNewLearning = async(req, res) => {
+  const { id, paragraph } = req.body;
+  try {
+     const image = req.file ? req.file.filename : "";
+
+    const updatelearning = await newlearningData.findByIdAndUpdate(id, { image, paragraph }, {new:true})
+
+    res.status(200).json({
+      status: true,
+      message: "Data Updated Successfully",
+      data: updatelearning
+    })
+  } catch (error) {
+    res.status(500).json({
+      error:error.messaage
+    })
+  }
+}
+
+export const deleteNewLearning = async(req, res) => {
+  const { id } = req.body;
+  try {
+    const deletenewdata = await newlearningData.findByIdAndDelete(id);
+
+    res.status(200).json({
+      status: true,
+      message: "Data deleted successfully",
+      data: deletenewdata
+    })
+  } catch (error) {
+    res.status(500).json({
+      error:error.messaage
+    })
+  }
+}

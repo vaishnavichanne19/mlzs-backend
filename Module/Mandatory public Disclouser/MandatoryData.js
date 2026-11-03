@@ -84,9 +84,23 @@ const infrastructureSchema = new mongoose.Schema({
         type: String
     }
 })
+
+const resultcompSchema = new mongoose.Schema({
+    year:{
+        type:Number
+    },
+    mlzs:{
+        type:Number
+    },
+    global:{
+        type:Number
+    },
+})
+
 export const GeneralData = mongoose.model("generaldata", generalSchema);
 export const DocumentData = mongoose.model("documentdata", documentSchema);
 export const ResultData = mongoose.model("resultdata", resultSchema);
 export const SessionTable = mongoose.model("sessiontable", sessiontblSchema);
 export const StaffData = mongoose.model("staffdata", staffSchema);
 export const InfrastructureData = mongoose.model("infrastructuredata", infrastructureSchema);
+export const resultcompdata = mongoose.model("resultcomp", resultcompSchema)

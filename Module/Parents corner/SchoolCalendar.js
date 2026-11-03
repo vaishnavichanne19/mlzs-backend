@@ -279,6 +279,17 @@ const learningsupportSchema = mongoose.Schema({
         type: String
     }
 })
+
+const newlearning = mongoose.Schema({
+    image:{
+        type:String
+    },
+    paragraph:{
+        type:String
+    }
+})
+
+
 export const SchoolCalendar = mongoose.model("schoolcalendar", CalendarSchema);
 export const HouseSystem = mongoose.model("housesystem", housesystemSchema);
 export const House = mongoose.model("house", houseSchema);
@@ -296,3 +307,4 @@ export const PedagogyData = mongoose.model("pedagogy", pedagogySchema);
 export const LibraryData = mongoose.model("library", librarySchema)
 export const SchoolLabsData = mongoose.model("SchoolLab", SchoolLabsSchema )
 export const LearningSupportData = mongoose.model("learningsupport", learningsupportSchema)
+export const newlearningData = mongoose.model("newlearning", newlearning);

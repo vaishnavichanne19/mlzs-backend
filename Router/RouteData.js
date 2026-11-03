@@ -6,9 +6,9 @@ import multer from "multer";
 import { CreateAbout, CreateAcademic, CreateAnthem, CreateChairman, CreateDirector, Creategetintouchform, CreateLiteraExp, CreateMission, CreatePhilosophy, CreatePrincipal, CreateRSD, deleteAbout, deleteAcademic, deleteChairman, deleteDirector, DeleteGetinTouchForm, deleteLiteraExp, deleteMission, deletePrincipal, deleteRSD, getallAbout, getallAcademic, getallAnthem, getallChairman, getallDirector, GetAllGetinTouch, getallLiteraExp, getallMission, getallPhilosophy, getallPrincipal, getallRSD, getoneAbout, getoneAcademic, getoneAnthem, getoneChairman, getoneDirector, getoneLiteraExp, getoneMission, getonePhilosophy, getonePrincipal, getoneRSD, updateAbout, updateAcademic, updateAnthem, updateChairman, updateDirector, updateLiteraExp, updateMission, updatePhilosophy, updatePrincipal, updateRSD } from '../ControlAPi/HomeApi.js/AboutApi.js';
 import { CreateAboutMLZS, CreateCampus, CreateFaculty, CreateHiTech, CreateNewAndEvent, CreatePrePrimary, CreatePrimary, CreateSchoolTiming, CreateSport, deleteAboutMLZS, deleteCampus, deleteFaculty, deleteHiTech, deleteNewAndEvent, deletePrePrimary, deletePrimary, deleteSchoolTiming, deleteSport, getallAboutMLZS, getallCampus, getallFaculty, getallHiTech, getallNewAndEvent, getallPrePrimary, getallPrimary, getallSchoolTiming, getallSport, getoneAboutMLZS, getoneCampus, getoneFaculty, getoneHiTech, getoneNewAndEvent, getonePrePrimary, getonePrimary, getoneSchoolTiming, getoneSport, updateAboutMLZS, updateCampus, updateFaculty, updateHiTech, updateNewAndEvent, updatePrePrimary, updatePrimary, updateSchoolTiming, updateSport } from '../ControlAPi/why mlzs/mlzsapi.js';
 import { CreateEnquiry, CreateEnquiryform, CreateGuidelines, CreateRules, CreateWithdrawalPolicy, DeleteEnquiryForm, DeleteRules, getallEnquiry, getAllEnquiryform, getallGuidelines, GetAllRules, getallWithdrawalPolicy, getoneEnquiry, getoneGuidelines, GetOneRules, getoneWithdrawalPolicy, updateEnquiry, updateGuidelines, UpdateRules, updateWithdrawalPolicy } from '../ControlAPi/AdmissionApi/Guidelines.js';
-import { CreateAchievement, CreateAnnual, CreateArt, CreateCurriculam, Createhobby, CreateHouse, CreateHouseSystem, Createlanguage, CreateLearningSupport, CreateLibrary, CreatePedagogy, CreatePhotoGallery, CreateSchoolCalendar, CreateSchoolCircular, CreateSchoolLabs, CreateSportData, CreateVideoGallery, deleteAchievement, deleteAnnual, deleteArt, deleteCurriculam, deletehobby, deleteHouse, deleteHouseSystem, deletelanguage, deleteLearningSupport, deleteLibrary, deletePedagogy, deletePhotoGallery, deleteSchoolCalendar, deleteSchoolCircular, deleteSchoolLabs, deleteSportData, deleteVideoGallery, getallAchievement, getallAnnual, getallArt, getallCurriculam, getallhobby, getallHouse, getallHouseSystem, getalllanguage, getallLearningSupport, getallLibrary, getallPedagogy, getallPhotoGallery, getallSchoolCalendar, getallSchoolCircular, getallSchoolLabs, getallSportData, getallVideoGallery, getoneAchievement, getoneAnnual, getoneArt, getoneCurriculam, getonehobby, getoneHouse, getoneHouseSystem, getonelanguage, getoneLearningSupport, getoneLibrary, getonePedagogy, getonePhotoGallery, getoneSchoolCalendar, getoneSchoolCircular, getoneSchoolLabs, getoneSportData, getoneVideoGallery, updateAchievement, updateAnnual, updateArt, updateCurriculam, updatehobby, updateHouse, updateHouseSystem, updatelanguage, updateLearningSupport, updateLibrary, updatePedagogy, updatePhotoGallery, updateSchoolCalendar, updateSchoolCircular, updateSchoolLabs, updateSinglePhotoInGallery, updateSportData, updateVideoGallery } from '../ControlAPi/patents corner/SchoolCalendarApi.js';
+import { CreateAchievement, CreateAnnual, CreateArt, CreateCurriculam, Createhobby, CreateHouse, CreateHouseSystem, Createlanguage, CreateLearningSupport, CreateLibrary, createNewLearning, CreatePedagogy, CreatePhotoGallery, CreateSchoolCalendar, CreateSchoolCircular, CreateSchoolLabs, CreateSportData, CreateVideoGallery, deleteAchievement, deleteAnnual, deleteArt, deleteCurriculam, deletehobby, deleteHouse, deleteHouseSystem, deletelanguage, deleteLearningSupport, deleteLibrary, deleteNewLearning, deletePedagogy, deletePhotoGallery, deleteSchoolCalendar, deleteSchoolCircular, deleteSchoolLabs, deleteSportData, deleteVideoGallery, getallAchievement, getallAnnual, getallArt, getallCurriculam, getallhobby, getallHouse, getallHouseSystem, getalllanguage, getallLearningSupport, getallLibrary, getAllNewLearning, getallPedagogy, getallPhotoGallery, getallSchoolCalendar, getallSchoolCircular, getallSchoolLabs, getallSportData, getallVideoGallery, getoneAchievement, getoneAnnual, getoneArt, getoneCurriculam, getonehobby, getoneHouse, getoneHouseSystem, getonelanguage, getoneLearningSupport, getoneLibrary, getOneNewLearning, getonePedagogy, getonePhotoGallery, getoneSchoolCalendar, getoneSchoolCircular, getoneSchoolLabs, getoneSportData, getoneVideoGallery, updateAchievement, updateAnnual, updateArt, updateCurriculam, updatehobby, updateHouse, updateHouseSystem, updatelanguage, updateLearningSupport, updateLibrary, updateNewLearning, updatePedagogy, updatePhotoGallery, updateSchoolCalendar, updateSchoolCircular, updateSchoolLabs, updateSinglePhotoInGallery, updateSportData, updateVideoGallery } from '../ControlAPi/patents corner/SchoolCalendarApi.js';
 import { CreateCareer, Createcontact, Createcontactform, DeleteCareer, Deletecontact, DeleteContactForm, getAllCareer, getAllcontact, getAllcontactform, getOneCareer, getOnecontact, UpdateCareer, Updatecontact } from '../ControlAPi/ContactAndCareer/ContactApi.js';
-import { CreateDocument, CreateGeneralTable, CreateInfrastructure, CreateResult, CreateSessionData, CreateSessionTable, CreateStaff, deleteDocument, deleteEntireSession, deleteGeneralTable, deleteInfrastructure, deleteResult,  deleteSessionTable,  deleteStaff, getallDocument, getallGeneralTable, getallInfrastructure, getallResult,  getallSessionTable, getallStaff, getoneDocument, getoneGeneralTable, getoneInfrastructure, getoneResult, getoneSessionTable, getoneStaff, updateDocument, updateGeneralTable, updateInfrastructure, updateResult, updateSessionData, updateSessionTable, updateStaff } from '../ControlAPi/Mandatory/MandatoryApi.js';
+import { CreateDocument, CreateGeneralTable, CreateInfrastructure, CreateResult, createResultComp, CreateSessionData, CreateSessionTable, CreateStaff, deleteDocument, deleteEntireSession, deleteGeneralTable, deleteInfrastructure, deleteResult,  deleteResultComp,  deleteSessionTable,  deleteStaff, getallDocument, getallGeneralTable, getallInfrastructure, getallResult,  getAllResultComp,  getallSessionTable, getallStaff, getoneDocument, getoneGeneralTable, getoneInfrastructure, getoneResult, getoneSessionTable, getoneStaff, getSingleResultComp, updateDocument, updateGeneralTable, updateInfrastructure, updateResult, updateResultComp, updateSessionData, updateSessionTable, updateStaff } from '../ControlAPi/Mandatory/MandatoryApi.js';
 import { CreateCalendar, CreateExcelEvent, DeleteAllCalendar, DeleteCalendar, GetAllCalendar, UpdateCalendar } from '../CalendarApi/Calendar.js';
 import { CreateReview, getallReview } from '../ControlAPi/ReviewApi/Review.js';
 import { Forgot, Login, LoginStatus, LogOut, ProtectedLogin, Registration, ResetPassword } from '../ControlAPi/AuthApi/AuthenticationApi.js';
@@ -523,6 +523,16 @@ route.get("/getonesportData/:id", getoneSportData);
 route.put("/updatesportData/:id",  updateSportData);
 route.delete("/deletesportData/:id",  deleteSportData);
 
+/*********************************
+ New Learning
+ *********************************/
+
+route.post("/createNewLearning", uploads.single("image"), createNewLearning);
+route.get("/getAllNewLearning", getAllNewLearning);
+route.get("/getOneNewLearning", getOneNewLearning);
+route.put("/updateNewLearning", uploads.single("image"), updateNewLearning);
+route.delete("/deleteNewLearning", deleteNewLearning);
+
  /*********************************
 Art Method
  *********************************/
@@ -647,6 +657,15 @@ route.get("/getallresult", getallResult);
 route.get("/getoneresult/:id", getoneResult);
 route.put("/updateresult/:id", uploadpdfs.fields([{name:"resultpdf"}]), updateResult);
 route.delete("/deleteresult/:id", deleteResult);
+
+/*********************************
+Result Comp Method
+ *********************************/
+route.post("/createResultComp", createResultComp);
+route.get("/getAllResultComp", getAllResultComp);
+route.get("/getSingleResultComp", getSingleResultComp);
+route.put("/updateResultComp", updateResultComp);
+route.delete("/deleteResultComp", deleteResultComp);
 
    /*********************************
 Staff Method
